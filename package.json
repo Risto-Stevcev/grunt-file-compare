@@ -4,7 +4,7 @@
   "description": "Grunt task to check if a set of files are equal",
   "main": "Gruntfile.js",
   "scripts": {
-    "test": "grunt"
+    "test": "./node_modules/.bin/grunt file_compare:foofoo"
   },
   "repository": {
     "type": "git",
