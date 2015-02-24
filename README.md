@@ -30,11 +30,15 @@ Type: `String`, Default: `'diff'`
 
 The binary to execute when comparing files.
 
+
 ## Contributing
+
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
+
 ## Release History
-_(Nothing yet)_
+
+* **v1.0.0**   02.24.2015   Initial release
 
 
 ## License
