@@ -1,6 +1,6 @@
 {
   "name": "grunt-file-compare",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Grunt task to check if a set of files are equal",
   "main": "Gruntfile.js",
   "scripts": {

@@ -14,15 +14,26 @@ module.exports = function(grunt) {
     })
 
     this.files.forEach(function(file, index, files) {
+      if (!file.src.length) {
+        grunt.log.debug('File(s) not found: ' + file.orig.src)
+        return
+      }
+
       if (options.compareBinary === 'diff')
         file.src.unshift('-q')  // quiet mode
+
+      grunt.log.debug('Running command: ' + options.compareBinary + ' ' + file.src.join(' '))
 
       grunt.util.spawn({
         cmd: options.compareBinary,
         args: file.src 
       }, function(error, result, code) {
         if (error) {
-          grunt.log.error(result.stdout)
+          if (result.stderr)
+            grunt.log.error(result.stderr)
+          else if (result.stdout)
+            grunt.log.error(result.stdout)
+
           grunt.fail.fatal('File compare failed.')
         }
 
