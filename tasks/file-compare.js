@@ -8,15 +8,6 @@
 
 module.exports = function(grunt) {
   grunt.registerMultiTask('file_compare', 'Grunt task to check if a set of files are equal', function() {
-    function CompareError(message) {
-      this.name = 'CompareError'
-      this.message = message || ''
-      var error = new Error(message)
-      error.name = this.name
-      this.stack = error.stack
-    }
-    CompareError.prototype = Object.create(Error.prototype)
-
     var done = this.async()
     var options = this.options({
       compareBinary: 'diff'
@@ -30,8 +21,10 @@ module.exports = function(grunt) {
         cmd: options.compareBinary,
         args: file.src 
       }, function(error, result, code) {
-        if (error)
-          grunt.fail.fatal(new CompareError(result.stdout))
+        if (error) {
+          grunt.log.error(result.stdout)
+          grunt.fail.fatal('File compare failed.')
+        }
 
         if (index === files.length - 1)
           done()
