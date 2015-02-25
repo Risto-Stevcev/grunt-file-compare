@@ -12,11 +12,14 @@ module.exports = function(grunt) {
     var options = this.options({
       compareBinary: 'diff'
     })
+    var fail = function() {
+      grunt.fail.fatal('File compare failed.')
+    }
 
     this.files.forEach(function(file, index, files) {
-      if (!file.src.length) {
-        grunt.log.debug('File(s) not found: ' + file.orig.src)
-        return
+      if (!file || !file.src || !file.src.length) {
+        grunt.log.error('File(s) not found: ' + file.orig.src.join(' '))
+        fail()
       }
 
       if (options.compareBinary === 'diff')
@@ -34,7 +37,7 @@ module.exports = function(grunt) {
           else if (result.stdout)
             grunt.log.error(result.stdout)
 
-          grunt.fail.fatal('File compare failed.')
+          fail()
         }
 
         if (index === files.length - 1)
